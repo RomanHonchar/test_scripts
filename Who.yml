@@ -1,0 +1,13 @@
+---
+- name: Display currently logged-in users on a Linux machine
+  hosts: all
+  become: no  # This command doesn't require elevated privileges
+
+  tasks:
+    - name: Get currently logged-in users
+      ansible.builtin.command: who
+      register: logged_in_users
+
+    - name: Display logged-in users
+      ansible.builtin.debug:
+        msg: "{{ logged_in_users.stdout_lines }}"
